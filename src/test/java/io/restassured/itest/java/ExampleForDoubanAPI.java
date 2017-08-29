@@ -1,13 +1,11 @@
 package io.restassured.itest.java;
-import static io.restassured.RestAssured.expect;
-import static io.restassured.RestAssured.get;
-import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.Before;
 import org.junit.Test;
-
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.CoreMatchers.*;
 import io.restassured.RestAssured;
-import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.module.jsv.JsonSchemaValidator;;
 
 public class ExampleForDoubanAPI {
 
@@ -21,6 +19,12 @@ public class ExampleForDoubanAPI {
     @Test
     public void testJsonScheme() {
         get("/1220562").then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("douban.json"));
+    }
+    
+  //使用Json Schema验证返回数据
+    @Test
+    public void test1() {
+        get("/1220562").then().body("rating.max",equalTo("10"));
     }
 
 }
